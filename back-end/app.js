@@ -5,6 +5,28 @@ const cors = require('cors') // middleware for enabling CORS (Cross-Origin Resou
 const mongoose = require('mongoose')
 
 const app = express() // instantiate an Express object
+const path = require("path");
+
+// enable CORS and JSON body parsing
+app.use(cors());
+app.use(express.json());
+
+// Serve static files (for your image)
+app.use("/static", require("express").static(path.join(__dirname, "public")));
+
+// "About" route
+app.get("/about", (req, res) => {
+  res.json({
+    title: "About Us",
+    paragraphs: [
+      "Hi! I’m Amal, a junior at NYU majoring in Computer Science and Economics. I’m originally from Lahore, Pakistan, a city I hold close to my heart. When I’m not studying or working on projects, you’ll usually find me reading, exploring new forms of henna artistry, or planning my next trip. I recently visited Greece and fell in love with its history and coastline.",
+      "",
+      "Beyond academics, I’m passionate about creativity and connection, whether through art, culture, or sport. I love cricket (as any true Lahori would!) and enjoy how it brings people together across borders. I’m always excited to learn, explore, and build things that make a meaningful impact."
+    ],
+    imageUrl: "http://localhost:7001/static/me.jpeg"
+  });
+});
+
 app.use(morgan('dev', { skip: (req, res) => process.env.NODE_ENV === 'test' })) // log all incoming requests, except when in unit test mode.  morgan has a few logging default styles - dev is a nice concise color-coded style
 app.use(cors()) // allow cross-origin resource sharing
 

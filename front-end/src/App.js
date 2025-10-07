@@ -1,3 +1,4 @@
+import AboutUs from "./AboutUs";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Messages from './Messages'
@@ -13,6 +14,9 @@ const App = props => {
         <Header />
         <main className="App-main">
           <Routes>
+
+            <Route path="/about" element={<AboutUs />} />
+
             {/* a route for the home page */}
             <Route path="/" element={<Home />} />
 
